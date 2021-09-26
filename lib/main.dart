@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saegis_sql/add_user.dart';
 
 void main() {
   runApp(const MyApp());
@@ -42,7 +43,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               title: const Text('Add to Database'),
-              onTap: () {},
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AddUser()),
+              ),
             ),
           ],
         ),
