@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saegis_sql/add_user.dart';
+import 'package:saegis_sql/user_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -46,6 +47,13 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => AddUser()),
+              ),
+            ),
+            ListTile(
+              title: const Text('Users List'),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const UsersList()),
               ),
             ),
           ],
