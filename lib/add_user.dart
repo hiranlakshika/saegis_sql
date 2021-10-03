@@ -13,6 +13,20 @@ class AddUser extends StatelessWidget {
 
   AddUser({Key? key}) : super(key: key);
 
+  Future<void> _showDialog(BuildContext context, String name) async {
+    return showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('User Name'),
+            content: Text(name),
+            actions: [
+              TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('OK')),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,15 +78,31 @@ class AddUser extends StatelessWidget {
                   child: const Text('Add User'),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    User selectedUser = await DatabaseHelper().selectByColumn(DatabaseHelper.tableUser, 'id', '2');
+                    _showDialog(context, selectedUser.name);
+                  },
                   child: const Text('Select User'),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      var user = User(
+                        id: _id.text,
+                        title: _title.text,
+                        name: _name.text,
+                        age: double.parse(_age.text),
+                        address: _address.text,
+                      );
+                      await DatabaseHelper().update(DatabaseHelper.tableUser, user);
+                    }
+                  },
                   child: const Text('Update User'),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    await DatabaseHelper().delete(DatabaseHelper.tableUser, '1');
+                  },
                   child: const Text('Delete User'),
                 ),
               ],
